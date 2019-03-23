@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -21,6 +20,7 @@ import { DetailsProvider } from '../providers/details/details';
 import { StorageProvider } from '../providers/storage/storage';
 import { ImportListProvider } from '../providers/import-list/import-list';
 import { ExportListProvider } from '../providers/export-list/export-list';
+import { YoutubeProvider } from '../providers/youtube/youtube';
 
 import {FileChooser} from "@ionic-native/file-chooser";
 import {FilePath} from "@ionic-native/file-path";
@@ -70,6 +70,7 @@ import { IonicStorageModule } from '@ionic/storage';
     SocialSharing,
     ImportListProvider,
     ExportListProvider,
+    YoutubeProvider,
     FileChooser,
     FilePath
   ]
