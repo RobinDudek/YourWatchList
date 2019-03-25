@@ -1,0 +1,29 @@
+page-series {
+
+}
+.card-title{
+  position: absolute;
+  background-color: rgba(0,0,0,0.5);
+  margin:auto;
+  color:rgba(255,255,255,1);
+  font-size: 12px;
+}
+.card-subtitle{
+  display: block;
+}
+ion-card{
+  width: auto !important;
+  height: 500px !important;
+}
+
+img{
+  padding:0 !important;
+  width: auto;
+  height: 450px !important;
+  display: block;
+
+}
+.card-button{
+  width: auto;
+  height: 500px;
+}

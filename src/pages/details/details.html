@@ -1,0 +1,94 @@
+<!--
+  Generated template for the DetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="movie">{{movie.Title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-card class='card' *ngIf="movie">
+    <img *ngIf="movie.Poster" src="{{movie.Poster}}" height="300"/>
+    <ion-row *ngIf="movie.Poster">
+      <ion-col>
+        <button ion-button (click)="share(movie.Poster)" color="primary">
+          <ion-icon name="download"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+      <ion-row>
+        <ion-col>
+          <ion-icon name="calendar"></ion-icon>
+          <span>{{movie.Year }}</span>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="PEGI"></ion-icon>
+          <div>{{movie.Rated }}</div>
+        </ion-col>
+        <ion-col>
+          <ion-icon name="Runtime"></ion-icon>
+          <div>{{movie.Runtime }}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div>Note Imdb : {{movie.imdbRating}}</div>
+        </ion-col>
+        <ion-col>
+          <div>Nombre de votes : {{movie.imdbVotes}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div>{{movie.Awards}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div>Genre : {{movie.Genre}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div>{{movie.Production}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div>Acteurs :{{movie.Actors}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div>{{movie.Plot}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div>{{movie.Website}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!favori">
+        <ion-col>
+          <button ion-item class="card" (click)="addFavorite()">
+            <ion-icon name="star"></ion-icon>
+            ajouter en favori
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="favori">
+        <ion-col>
+          <button ion-item class="card" (click)="removeFavorite(movie)">
+            <ion-icon name="trash"></ion-icon>
+            supprimer le favori
+          </button>
+        </ion-col>
+      </ion-row>
+</ion-content>

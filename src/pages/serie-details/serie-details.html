@@ -1,0 +1,92 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="serie">{{serie.Title}}</ion-title>
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-card class='card' *ngIf="serie">
+        <div class="card-subtitle">
+            <img  src="{{serie.Poster}}" height="300"/>
+            <ion-row>
+
+                <ion-col>
+                    <ion-icon name="calendar"></ion-icon>
+                    <div>{{serie.Year }}</div>
+                </ion-col>
+                <ion-col>
+                    <ion-icon name="PEGI"></ion-icon>
+                    <div>{{serie.Rated }}</div>
+                </ion-col>
+                <ion-col>
+                    <ion-icon name="Runtime"></ion-icon>
+                    <div>{{serie.Runtime }}</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-icon name="star"></ion-icon>
+                    <div>Note Imdb : {{serie.imdbRating}}</div>
+                </ion-col>
+                <ion-col>
+                    <div>Nombre de votes : {{serie.imdbVotes}}</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div>{{serie.Awards}}</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div>Genre : {{serie.Genre}}</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div>{{serie.Production}}</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div>Acteurs :{{serie.Actors}}</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div>{{serie.Plot}}</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-list *ngFor="let season of seasonNumber">
+                        <button ion-item class="card" (click)="openDetails(serie.imdbID, season)">
+                            saison {{season}}
+                        </button>
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="!favori">
+                <ion-col>
+                    <button ion-item class="card" (click)="addFavorite()">
+                        <ion-icon name="star"></ion-icon>
+                        ajouter en favori
+                    </button>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="favori">
+                <ion-col>
+                    <button ion-item class="card" (click)="removeFavorite(serie)">
+                        <ion-icon name="trash"></ion-icon>
+                        supprimer le favori
+                    </button>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-card>
+
+</ion-content>
