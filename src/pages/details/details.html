@@ -12,67 +12,71 @@
 
 </ion-header>
 
-<ion-content padding>
-  <ion-card class='card' *ngIf="movie">
-    <img *ngIf="movie.Poster" src="{{movie.Poster}}" height="300"/>
-    <ion-row *ngIf="movie.Poster">
-      <ion-col>
-        <button ion-button (click)="share(movie.Poster)" color="primary">
-          <ion-icon name="download"></ion-icon>
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-      <ion-row>
+<ion-content>
+  <ion-card *ngIf="movie">
+    <ion-grid>
+      <ion-row *ngIf="movie.Poster">
         <ion-col>
+          <img *ngIf="movie.Poster" src="{{movie.Poster}}" height="300"/>
+          <button ion-button (click)="share(movie.Poster)" color="primary">
+            <ion-icon name="download"></ion-icon>
+          </button>
+          <button ion-button icon-end full (click)='openTrailer()' class="detail-btn-color">
+              Trailer
+              <ion-icon name="videocam"></ion-icon>
+            </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4>
           <ion-icon name="calendar"></ion-icon>
-          <span>{{movie.Year }}</span>
+          {{movie.Year }}
         </ion-col>
-        <ion-col>
+        <ion-col col-4>
           <ion-icon name="PEGI"></ion-icon>
-          <div>{{movie.Rated }}</div>
+          {{movie.Rated }}
         </ion-col>
-        <ion-col>
+        <ion-col col-4>
           <ion-icon name="Runtime"></ion-icon>
-          <div>{{movie.Runtime }}</div>
+          {{movie.Runtime }}
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <div>Note Imdb : {{movie.imdbRating}}</div>
+          >Note Imdb : {{movie.imdbRating}}
         </ion-col>
         <ion-col>
-          <div>Nombre de votes : {{movie.imdbVotes}}</div>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <div>{{movie.Awards}}</div>
+          Nombre de votes : {{movie.imdbVotes}}
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <div>Genre : {{movie.Genre}}</div>
+          {{movie.Awards}}
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <div>{{movie.Production}}</div>
+          Genre : {{movie.Genre}}
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <div>Acteurs :{{movie.Actors}}</div>
+          {{movie.Production}}
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <div>{{movie.Plot}}</div>
+          Acteurs :{{movie.Actors}}
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <div>{{movie.Website}}</div>
+          {{movie.Plot}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          {{movie.Website}}
         </ion-col>
       </ion-row>
       <ion-row *ngIf="!favori">
@@ -91,4 +95,6 @@
           </button>
         </ion-col>
       </ion-row>
+      </ion-grid>
+    </ion-card>
 </ion-content>

@@ -83,4 +83,16 @@ export class DetailsPage {
         })
     }
 
+    private openTrailer() {
+        this.youtubeProvider.getIdByTitle(this.allInfos.Title).then((data) => {
+          const videoId = data.items[0].id.videoId;
+          if (videoId) {
+            if (this.platform.is('cordova')) {
+              this.youtubeVideoPlayer.openVideo(videoId);
+            } else {
+              window.open('https://www.youtube.com/watch?v=' + videoId);
+            }
+          }
+        });
+
 }
