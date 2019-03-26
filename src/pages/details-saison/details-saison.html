@@ -6,8 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title *ngIf="serie">{{serie.Title}}</ion-title>
+  <ion-navbar>  
+    <ion-title full *ngIf="serie">
+        {{movie.Title}} 
+        <ion-icon *ngIf="!favori" text-end (click)="addFavorite()" style="color:#ff5050; cursor: pointer;" name="heart-outline"></ion-icon>
+        <ion-icon  *ngIf="favori" text-end (click)="removeFavorite(serie)" style="color:#ff5050; cursor: pointer;" name="heart"></ion-icon>
+      </ion-title>
   </ion-navbar>
 
 

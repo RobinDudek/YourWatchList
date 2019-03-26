@@ -7,7 +7,12 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title detail-title *ngIf="movie">{{movie.Title}}</ion-title>
+    <ion-title full *ngIf="movie">
+      {{movie.Title}} 
+      <ion-icon *ngIf="!favori" text-end (click)="addFavorite()" style="color:#ff5050; cursor: pointer;" name="heart-outline"></ion-icon>
+      <ion-icon  *ngIf="favori" text-end (click)="removeFavorite(movie)" style="color:#ff5050; cursor: pointer;" name="heart"></ion-icon>
+    </ion-title>
+      
   </ion-navbar>
 
 </ion-header>
@@ -34,12 +39,7 @@
               <ion-icon name="videocam"></ion-icon>
               Trailer
           </button>
-          <button  ion-button *ngIf="!favori"(click)="addFavorite()">
-            <ion-icon name="star"></ion-icon>  Fav
-          </button>
-          <button  ion-button *ngIf="favori" (click)="removeFavorite(movie)">
-            <ion-icon name="trash"></ion-icon>  Unfav
-          </button>
+
         </ion-col>
         <ion-col col-4></ion-col>
       </ion-row>
