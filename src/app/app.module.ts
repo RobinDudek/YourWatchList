@@ -27,6 +27,8 @@ import {FilePath} from "@ionic-native/file-path";
 import {HttpClientModule} from "@angular/common/http";
 import {SocialSharing} from "@ionic-native/social-sharing";
 import { IonicStorageModule } from '@ionic/storage';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+
 
 
 @NgModule({
@@ -70,6 +72,7 @@ import { IonicStorageModule } from '@ionic/storage';
     SocialSharing,
     ImportListProvider,
     ExportListProvider,
+    YoutubeVideoPlayer,
     YoutubeProvider,
     FileChooser,
     FilePath

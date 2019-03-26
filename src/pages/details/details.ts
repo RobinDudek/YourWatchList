@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, Platform } from 'ionic-angular';
 import {DetailsProvider} from "../../providers/details/details";
 import {StorageProvider} from "../../providers/storage/storage";
 import {SocialSharing} from "@ionic-native/social-sharing";
-
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { YoutubeProvider } from '../../providers/youtube/youtube';
 /**
  * Generated class for the DetailsPage page.
  *
@@ -22,12 +23,20 @@ export class DetailsPage {
     history = [];
     favori:boolean =false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public detailsProvider: DetailsProvider, private storageProvider: StorageProvider, private socialSharing: SocialSharing) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private platform: Platform,
+    public detailsProvider: DetailsProvider, 
+    private storageProvider: StorageProvider,
+     private socialSharing: SocialSharing,
+     private youtubeVideoPlayer: YoutubeVideoPlayer,
+     private youtubeProvider: YoutubeProvider,) {
 
   }
     goBack() {
         this.navCtrl.pop();
     }
+
   ionViewDidLoad() {
       this.movieId = this.navParams.get('movieId');
       this.detailsProvider.getMovieDetails(this.movieId)
@@ -83,8 +92,8 @@ export class DetailsPage {
         })
     }
 
-    private openTrailer() {
-        this.youtubeProvider.getIdByTitle(this.allInfos.Title).then((data) => {
+    openTrailer() {
+        this.youtubeProvider.getIdByTitle(this.movie.Title).then((data) => {
           const videoId = data.items[0].id.videoId;
           if (videoId) {
             if (this.platform.is('cordova')) {
@@ -94,5 +103,5 @@ export class DetailsPage {
             }
           }
         });
-
+    }
 }

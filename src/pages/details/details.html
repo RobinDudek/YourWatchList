@@ -7,25 +7,41 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title *ngIf="movie">{{movie.Title}}</ion-title>
+    <ion-title detail-title *ngIf="movie">{{movie.Title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="movie">
-    <ion-grid>
+    <ion-grid *ngIf="movie">
       <ion-row *ngIf="movie.Poster">
-        <ion-col>
+        <ion-col col-4></ion-col>
+        <ion-col col-4>
           <img *ngIf="movie.Poster" src="{{movie.Poster}}" height="300"/>
-          <button ion-button (click)="share(movie.Poster)" color="primary">
+        </ion-col>
+        <ion-col col-4></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4></ion-col>
+        <ion-col>
+          <button *ngIf="movie.Poster" ion-button (click)="download(movie.Poster)" color="primary">
             <ion-icon name="download"></ion-icon>
           </button>
-          <button ion-button icon-end full (click)='openTrailer()' class="detail-btn-color">
-              Trailer
+          <button *ngIf="movie.Poster" ion-button (click)="share(movie.Poster)" color="primary">
+            <ion-icon name="share"></ion-icon>
+          </button>
+          <button ion-button (click)="openTrailer()" class="detail-btn-color">
               <ion-icon name="videocam"></ion-icon>
-            </button>
+              Trailer
+          </button>
+          <button  ion-button *ngIf="!favori"(click)="addFavorite()">
+            <ion-icon name="star"></ion-icon>  Fav
+          </button>
+          <button  ion-button *ngIf="favori" (click)="removeFavorite(movie)">
+            <ion-icon name="trash"></ion-icon>  Unfav
+          </button>
         </ion-col>
+        <ion-col col-4></ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-4>
@@ -51,11 +67,6 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          {{movie.Awards}}
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
           Genre : {{movie.Genre}}
         </ion-col>
       </ion-row>
@@ -65,7 +76,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
+        <ion-col class="roboto">
           Acteurs :{{movie.Actors}}
         </ion-col>
       </ion-row>
@@ -75,26 +86,12 @@
         </ion-col>
       </ion-row>
       <ion-row>
+        <ion-col col-12 class="detail-website detail-other-font"><a href="{{ movie.Website }}">{{ movie.Website }}</a></ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col>
-          {{movie.Website}}
+          {{movie.Awards}}
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="!favori">
-        <ion-col>
-          <button ion-item class="card" (click)="addFavorite()">
-            <ion-icon name="star"></ion-icon>
-            ajouter en favori
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="favori">
-        <ion-col>
-          <button ion-item class="card" (click)="removeFavorite(movie)">
-            <ion-icon name="trash"></ion-icon>
-            supprimer le favori
-          </button>
-        </ion-col>
-      </ion-row>
-      </ion-grid>
-    </ion-card>
-</ion-content>
+    </ion-grid>
+  </ion-content>
