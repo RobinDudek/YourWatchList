@@ -10,17 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 /*
-  Generated class for the DetailsProvider provider.
+  Generated class for the OmdbProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-var DetailsProvider = /** @class */ (function () {
-    function DetailsProvider(http) {
+var OmdbProvider = (function () {
+    function OmdbProvider(http) {
         this.http = http;
         this.apiUrl = 'http://www.omdbapi.com/?apikey=75522b56&';
+        this.imgUrl = 'http://img.omdbapi.com/?apikey=75522b56&';
     }
-    DetailsProvider.prototype.getMovieDetails = function (movieId) {
+    OmdbProvider.prototype.getMovieOmdb = function (movieId) {
         var _this = this;
         return new Promise(function (resolve) {
             _this.http.get(_this.apiUrl + 'i=' + movieId + '&plot=full')
@@ -32,7 +33,7 @@ var DetailsProvider = /** @class */ (function () {
             });
         });
     };
-    DetailsProvider.prototype.getSeasonDetails = function (serieId) {
+    OmdbProvider.prototype.getSeasonOmdb = function (serieId) {
         var _this = this;
         return new Promise(function (resolve) {
             _this.http.get(_this.apiUrl + 'i=' + serieId + '&plot=full')
@@ -44,7 +45,7 @@ var DetailsProvider = /** @class */ (function () {
             });
         });
     };
-    DetailsProvider.prototype.getOneSeason = function (serieId, season) {
+    OmdbProvider.prototype.getOneSeason = function (serieId, season) {
         var _this = this;
         return new Promise(function (resolve) {
             _this.http.get(_this.apiUrl + 'i=' + serieId + '&season=' + season + '&plot=full')
@@ -56,7 +57,7 @@ var DetailsProvider = /** @class */ (function () {
             });
         });
     };
-    DetailsProvider.prototype.getEpisode = function (serieId, season, episodeNumber) {
+    OmdbProvider.prototype.getEpisode = function (serieId, season, episodeNumber) {
         var _this = this;
         return new Promise(function (resolve) {
             _this.http.get(_this.apiUrl + 'i=' + serieId + '&season=' + season + '&Episode=' + episodeNumber + '&plot=full')
@@ -68,11 +69,24 @@ var DetailsProvider = /** @class */ (function () {
             });
         });
     };
-    DetailsProvider = __decorate([
+
+    OmdbProvider.prototype.getEpisode = function (itemId) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.get(_this.imgUrl + 'i=' + itemId)
+                .subscribe(function (data) {
+                // @ts-ignore
+                resolve(data);
+            }, function (err) {
+                console.log(err);
+            });
+        });
+    };
+    OmdbProvider = __decorate([
         Injectable(),
         __metadata("design:paramtypes", [HttpClient])
-    ], DetailsProvider);
-    return DetailsProvider;
+    ], OmdbProvider);
+    return OmdbProvider;
 }());
-export { DetailsProvider };
-//# sourceMappingURL=details.js.map
+export { OmdbProvider };
+//# sourceMappingURL=Omdb.js.map

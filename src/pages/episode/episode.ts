@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {DetailsProvider} from "../../providers/details/details";
+import {OmdbProvider} from "../../providers/omdb/omdb";
 import {StorageProvider} from "../../providers/storage/storage";
 import {SocialSharing} from "@ionic-native/social-sharing";
 
@@ -26,7 +26,11 @@ export class EpisodePage {
     favori:boolean =false;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public detailsProvider: DetailsProvider, private storageProvider: StorageProvider, private socialSharing: SocialSharing) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public omdbProvider: OmdbProvider, 
+    private storageProvider: StorageProvider, 
+    private socialSharing: SocialSharing) {
   }
     goBack() {
         this.navCtrl.pop();
@@ -36,9 +40,11 @@ export class EpisodePage {
       console.log(this.serieId);
       this.seasonNumber = this.navParams.get('seasonId');
       this.episodeNumber = this.navParams.get('episodeNumber');
-      this.detailsProvider.getEpisode(this.serieId, this.seasonNumber, this.episodeNumber)
+      this.omdbProvider.getEpisode(this.serieId, this.seasonNumber, this.episodeNumber)
           .then(data =>{
               this.episode = data;
+              this.episode.Poster = this.omdbProvider.getPoster(this.episode.imdbID, 'standard');
+
               this.storageProvider.get('favori').then((data) => {
                   if(data != null)
                   this.history = data;

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {DetailsProvider} from "../../providers/details/details";
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import {OmdbProvider} from "../../providers/omdb/omdb";
 import {DetailsSaisonPage} from "../details-saison/details-saison";
 import {StorageProvider} from "../../providers/storage/storage";
+import {SocialSharing} from "@ionic-native/social-sharing";
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { YoutubeProvider } from '../../providers/youtube/youtube';
 
 /**
  * Generated class for the SerieDetailsPage page.
@@ -23,7 +26,14 @@ export class SerieDetailsPage {
     history = [];
     favori:boolean =false;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,public detailsProvider: DetailsProvider, private storageProvider: StorageProvider) {
+    constructor(public navCtrl: NavController, 
+        public navParams: NavParams,
+        private platform: Platform,
+        public omdbProvider: OmdbProvider, 
+        private storageProvider: StorageProvider,
+        private socialSharing: SocialSharing,
+        private youtubeVideoPlayer: YoutubeVideoPlayer,
+        private youtubeProvider: YoutubeProvider) {
     }
 
     goBack() {
@@ -31,13 +41,13 @@ export class SerieDetailsPage {
     }
     ionViewDidLoad() {
         const serieId = this.navParams.get('serieId');
-        this.detailsProvider.getSeasonDetails(serieId)
+        this.omdbProvider.getSeasons(serieId)
             .then(data =>{
                 this.serie = data;
                 if(this.serie != null){
-                    this.serie.Poster = 'http://img.omdbapi.com/?apikey=75522b56&i=' + this.serie.imdbID;
+                    this.serie.Poster = this.omdbProvider.getPoster(this.serie.imdbID, "hd");
                 }
-                for (let i=0;i <this.serie.totalSeasons;i++ ){
+                for (let i=0;i <this.serie.totalSeasons;i++){
                     this.seasonNumber.push(i+1);
                 }
             });
@@ -45,6 +55,8 @@ export class SerieDetailsPage {
     openDetails(serieId:string, seasonId: number) {
         this.navCtrl.push(DetailsSaisonPage,{serieId: serieId, seasonId: seasonId});
     }
+
+
     addFavorite() {
         this.storageProvider.get('favori').then((data) => {
             if(data != null){
@@ -59,7 +71,6 @@ export class SerieDetailsPage {
                 'episodeId': null
             };
             this.history.push(this.tab);
-            console.log(this.tab);
             this.storageProvider.set('favori',this.history);
             this.favori = true;
         });
@@ -71,5 +82,18 @@ export class SerieDetailsPage {
         tabStorage.splice(tabStorage.indexOf(serie),1);
         this.storageProvider.set('favori', tabStorage);
         this.favori = false;
+    }
+    
+    openTrailer() {
+        this.youtubeProvider.getIdByTitle(this.serie.Title).then((data) => {
+          const videoId = data.items[0].id.videoId;
+          if (videoId) {
+            if (this.platform.is('cordova')) {
+              this.youtubeVideoPlayer.openVideo(videoId);
+            } else {
+              window.open('https://www.youtube.com/watch?v=' + videoId);
+            }
+          }
+        });
     }
 }

@@ -1,7 +1,11 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title *ngIf="serie">{{serie.Title}}</ion-title>
+    <ion-title *ngIf="serie">
+        {{serie.Title}}
+        <ion-icon *ngIf="!favori" text-end (click)="addFavorite()" style="color:#ff5050; cursor: pointer;" name="heart-outline"></ion-icon>
+        <ion-icon  *ngIf="favori" text-end (click)="removeFavorite(serie)" style="color:#ff5050; cursor: pointer;" name="heart"></ion-icon>
+    </ion-title>
   </ion-navbar>
 
 
@@ -9,13 +13,20 @@
 
 
 <ion-content padding>
-    <ion-card class='card' *ngIf="serie">
-        <div class="card-subtitle">
-            <img  src="{{serie.Poster}}" height="300"/>
-            <ion-row>
-
-                <ion-col>
-                    <ion-icon name="calendar"></ion-icon>
+    <ion-grid *ngIf="serie">
+        <ion-row>
+            <ion-col>
+                <img src="{{serie.Poster}}" height="300"/>
+            </ion-col>
+        </ion-row>
+        <ion-list *ngFor="let season of seasonNumber">
+            <button ion-item (click)="openDetails(serie.imdbID, season)">
+                Saison {{season}}
+            </button>
+        </ion-list>
+        <ion-row>
+            <ion-col>
+                <ion-icon name="calendar"></ion-icon>
                     <div>{{serie.Year }}</div>
                 </ion-col>
                 <ion-col>
@@ -34,11 +45,6 @@
                 </ion-col>
                 <ion-col>
                     <div>Nombre de votes : {{serie.imdbVotes}}</div>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <div>{{serie.Awards}}</div>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -63,30 +69,9 @@
             </ion-row>
             <ion-row>
                 <ion-col>
-                    <ion-list *ngFor="let season of seasonNumber">
-                        <button ion-item class="card" (click)="openDetails(serie.imdbID, season)">
-                            saison {{season}}
-                        </button>
-                    </ion-list>
+                    <div>{{serie.Awards}}</div>
                 </ion-col>
             </ion-row>
-            <ion-row *ngIf="!favori">
-                <ion-col>
-                    <button ion-item class="card" (click)="addFavorite()">
-                        <ion-icon name="star"></ion-icon>
-                        ajouter en favori
-                    </button>
-                </ion-col>
-            </ion-row>
-            <ion-row *ngIf="favori">
-                <ion-col>
-                    <button ion-item class="card" (click)="removeFavorite(serie)">
-                        <ion-icon name="trash"></ion-icon>
-                        supprimer le favori
-                    </button>
-                </ion-col>
-            </ion-row>
-        </div>
-    </ion-card>
+    </ion-grid>
 
 </ion-content>

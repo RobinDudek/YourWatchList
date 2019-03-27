@@ -20,16 +20,13 @@
 <ion-content>
     <ion-grid *ngIf="movie">
       <ion-row *ngIf="movie.Poster">
-        <ion-col col-4></ion-col>
-        <ion-col col-4>
-          <img *ngIf="movie.Poster" src="{{movie.Poster}}" height="300"/>
+        <ion-col>
+          <img class="img" *ngIf="movie.Poster" src="{{movie.Poster}}" height="300"/>
         </ion-col>
-        <ion-col col-4></ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-4></ion-col>
         <ion-col>
-          <button *ngIf="movie.Poster" ion-button (click)="download(movie.Poster)" color="primary">
+          <button *ngIf="movie.Poster" ion-button (click)="download(movie.Poster)">
             <ion-icon name="download"></ion-icon>
           </button>
           <button *ngIf="movie.Poster" ion-button (click)="share(movie.Poster)" color="primary">

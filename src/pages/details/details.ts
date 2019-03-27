@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams, Platform } from 'ionic-angular';
-import {DetailsProvider} from "../../providers/details/details";
+import {OmdbProvider} from "../../providers/omdb/omdb";
 import {StorageProvider} from "../../providers/storage/storage";
 import {SocialSharing} from "@ionic-native/social-sharing";
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
@@ -26,11 +26,11 @@ export class DetailsPage {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private platform: Platform,
-    public detailsProvider: DetailsProvider, 
+    public omdbProvider: OmdbProvider, 
     private storageProvider: StorageProvider,
      private socialSharing: SocialSharing,
      private youtubeVideoPlayer: YoutubeVideoPlayer,
-     private youtubeProvider: YoutubeProvider,) {
+     private youtubeProvider: YoutubeProvider) {
 
   }
     goBack() {
@@ -39,13 +39,14 @@ export class DetailsPage {
 
   ionViewDidLoad() {
       this.movieId = this.navParams.get('movieId');
-      this.detailsProvider.getMovieDetails(this.movieId)
+      this.omdbProvider.getMovie(this.movieId)
           .then(data =>{
               this.movie = data;
               console.log(this.movie);
               if(this.movie != null){
-                  this.movie.Poster = 'http://img.omdbapi.com/?apikey=75522b56&i=' + this.movie.imdbID;
-                  this.storageProvider.get('favori').then((data) => {
+                this.movie.Poster = this.omdbProvider.getPoster(this.movie.imdbID);
+                
+                this.storageProvider.get('favori').then((data) => {
                       if(data != null)
                           this.history = data;
                       for(let item of this.history){

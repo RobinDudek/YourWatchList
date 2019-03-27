@@ -17,7 +17,9 @@ import {DetailsPage} from "../details/details";
 export class MoviesPage {
     isSearchBarOpened = false;
     movies;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public moviesProvider: MoviesProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+     public moviesProvider: MoviesProvider) {
   }
 
     searchMovie(search: string) {

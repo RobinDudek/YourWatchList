@@ -7,10 +7,8 @@
 <ion-header>
 
   <ion-navbar>  
-    <ion-title full *ngIf="serie">
-        {{movie.Title}} 
-        <ion-icon *ngIf="!favori" text-end (click)="addFavorite()" style="color:#ff5050; cursor: pointer;" name="heart-outline"></ion-icon>
-        <ion-icon  *ngIf="favori" text-end (click)="removeFavorite(serie)" style="color:#ff5050; cursor: pointer;" name="heart"></ion-icon>
+    <ion-title full *ngIf="saison">
+        {{saison.Title}} 
       </ion-title>
   </ion-navbar>
 
@@ -19,21 +17,14 @@
 
 
 <ion-content padding>
-  <ion-card class='card' *ngIf="saison" class="serie-info">
+  <ion-grid *ngIf="saison" class="serie-info">
 
     <img *ngIf="saison.Poster" src="{{saison.Poster}}"/>
-
-    <div class="card-subtitle">
-      <ion-row>
-        <ion-col>
           <ion-list *ngFor="let episode of saison.Episodes">
             <button ion-item class="card" (click)="openDetails(episode)">
-              Episode {{episode.Title}}
+              Episode {{episode.Episode}}: {{episode.Title}}
             </button>
           </ion-list>
-        </ion-col>
-      </ion-row>
-    </div>
-  </ion-card>
+  </ion-grid>
 
 </ion-content>

@@ -5,26 +5,37 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title *ngIf="episode">{{episode.Title}}</ion-title>
+    <ion-title *ngIf="episode">
+      {{episode.Title}}
+      <ion-icon *ngIf="!favori" text-end (click)="addFavorite()" style="color:#ff5050; cursor: pointer;" name="heart-outline"></ion-icon>
+      <ion-icon  *ngIf="favori" text-end (click)="removeFavorite(episode)" style="color:#ff5050; cursor: pointer;" name="heart"></ion-icon>
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-  <ion-card class='card' *ngIf="episode" class="movie-info">
-
-    <img *ngIf="episode.Poster" src="{{episode.Poster}}" height="300"/>
+  <ion-grid *ngIf="episode" class="movie-info">
     <ion-row *ngIf="episode.Poster">
       <ion-col>
-        <button ion-button (click)="share(episode.Poster)" color="primary">
+        <img *ngIf="episode.Poster" src="{{episode.Poster}}" height="300"/>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button *ngIf="episode.Poster" ion-button (click)="download(episode.Poster)">
           <ion-icon name="download"></ion-icon>
+        </button>
+        <button (click)="share(episode.Poster)" color="primary">
+          <ion-icon name="share"></ion-icon>
+        </button>
+        <button ion-button (click)="openTrailer()" class="detail-btn-color">
+            <ion-icon name="videocam"></ion-icon>
+            Trailer
         </button>
       </ion-col>
     </ion-row>
-    <div class="card-subtitle">
       <ion-row>
         <ion-col>
           <ion-icon name="calendar"></ion-icon>
@@ -49,22 +60,5 @@
           <div>{{episode.Plot}}</div>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="!favori">
-        <ion-col>
-          <button ion-item class="card" (click)="addFavorite()">
-            <ion-icon name="star"></ion-icon>
-            ajouter en favori
-          </button>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="favori">
-        <ion-col>
-          <button ion-item class="card" (click)="removeFavorite(episode)">
-            <ion-icon name="trash"></ion-icon>
-            supprimer le favori
-          </button>
-        </ion-col>
-      </ion-row>
-    </div>
-  </ion-card>
+  </ion-grid>
 </ion-content>

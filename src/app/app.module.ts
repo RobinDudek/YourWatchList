@@ -16,7 +16,7 @@ import {EpisodePage} from "../pages/episode/episode";
 
 import { MoviesProvider } from '../providers/movies/movies';
 import { SeriesProvider } from '../providers/series/series';
-import { DetailsProvider } from '../providers/details/details';
+import { OmdbProvider } from '../providers/omdb/omdb';
 import { StorageProvider } from '../providers/storage/storage';
 import { ImportListProvider } from '../providers/import-list/import-list';
 import { ExportListProvider } from '../providers/export-list/export-list';
@@ -67,7 +67,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
     {provide: ErrorHandler, useClass: IonicErrorHandler}  ,  
     MoviesProvider,
     SeriesProvider,
-    DetailsProvider,
+    OmdbProvider,
     StorageProvider,
     SocialSharing,
     ImportListProvider,

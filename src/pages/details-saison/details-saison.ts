@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {DetailsProvider} from "../../providers/details/details";
+import { OmdbProvider } from "../../providers/omdb/omdb";
 import {EpisodePage} from "../episode/episode";
 
 /**
@@ -19,7 +19,9 @@ export class DetailsSaisonPage {
     saison;
     serieId;
     seasonId;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public detailsProvider: DetailsProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public omdbProvider: OmdbProvider) {
   }
     goBack() {
         this.navCtrl.pop();
@@ -27,11 +29,11 @@ export class DetailsSaisonPage {
     ionViewDidLoad() {
         this.serieId = this.navParams.get('serieId');
         this.seasonId = this.navParams.get('seasonId');
-        this.detailsProvider.getOneSeason(this.serieId, this.seasonId)
+        this.omdbProvider.getOneSeason(this.serieId, this.seasonId)
             .then(data =>{
                 this.saison = data;
                 if(this.saison != null)
-                    this.saison.Poster = 'http://img.omdbapi.com/?apikey=75522b56&i=' + this.serieId;
+                    this.saison.Poster = this.omdbProvider.getPoster(this.serieId);
             })
         ;
     }

@@ -17,37 +17,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class='page-content'>
+<ion-content padding>
     <ion-row>
-      <ion-col col-6 col-md-4 col-lg-2 *ngFor='let serie of series'>
-        
-        <ion-card class='card'>
-            <ion-buttons>
-             <button ion-button full (click)="openDetails(serie.imdbID)">
-              
-              <ion-card-title #popoverText class="card-title">
-                {{serie.Title}}
-              </ion-card-title>
-
-              <div class="card-subtitle">
-                <ion-row>
-                  <ion-col>
-                    <ion-icon name="star"></ion-icon>
-                    <div>5 étoiles</div>
-                  </ion-col>
-                  <ion-col>
-                    <ion-icon name="calendar"></ion-icon>
-                    <div>{{serie.Year }}</div>
-                  </ion-col>
-                  <ion-col>
-                    <ion-icon name="PEGI"></ion-icon>
-                    <div>{{serie.Rated }}</div>
-                  </ion-col>
-                </ion-row>
-              </div>
-              </button> 
-            </ion-buttons>
-            <img *ngIf="serie.Poster" src="{{serie.Poster}}"/>
+      <ion-col col-12 col-sm-6 col-md-4 col-lg-3 *ngFor='let serie of series'>
+        <ion-card (click)="openDetails(serie.imdbID)">
+            <button ion-button full>
+              {{serie.Title}}
+            </button>
+          <img *ngIf="serie.Poster != 'N/A'; else na;" src="{{serie.Poster}}"/>
+          <ng-template #na>
+            <img src="assets/imgs/notfound.png"/>
+          </ng-template>
         </ion-card>
       </ion-col>
     </ion-row>

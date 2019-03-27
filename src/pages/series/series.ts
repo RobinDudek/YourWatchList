@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {OmdbProvider} from "../../providers/omdb/omdb";
 import {SeriesProvider} from "../../providers/series/series";
 import {SerieDetailsPage} from "../serie-details/serie-details";
 
@@ -17,7 +18,10 @@ import {SerieDetailsPage} from "../serie-details/serie-details";
 export class SeriesPage {
     isSearchBarOpened = false;
     series;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public seriesProvider: SeriesProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public omdbProvider: OmdbProvider, 
+    public seriesProvider: SeriesProvider) {
   }
 
     searchSerie(search: string) {
@@ -26,10 +30,9 @@ export class SeriesPage {
             .then(data =>{
                 this.series = data;
                 if(this.series != null){
-                this.series.Poster = 'http://img.omdbapi.com/?apikey=75522b56&i=' + this.series.imdbID+'&type=series';
+                    this.series.Poster = this.omdbProvider.getPoster(this.series.imdbID, 'hd');
                 }
-            })
-        ;
+            });
     }
     private reset(){
         this.series = [];
